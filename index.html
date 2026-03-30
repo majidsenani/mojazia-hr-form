@@ -25,45 +25,58 @@
     <h2>شركة صندوق مجزية العقاري</h2>
     
     <form id="employeeForm" action="https://script.google.com/macros/s/AKfycbzKcSVNPpLiKCEgMHLOnwK_WxQrDvJplbJgh_hhSzGOd36wpfhGfhhQxICfMhaAZzC6/exec" method="POST">
-        
+
+        <!-- ترتيب الحقول مطابق لترتيب الأعمدة في الإكسل -->
+
+        <!-- ١. الاسم الأول عربي -->
         <div class="section-title">البيانات الشخصية (بالعربي)</div>
         <div class="form-group">
             <label>الاسم الأول</label>
             <input type="text" name="firstNameAr" required>
         </div>
-        <div class="form-group">
-            <label>الأسماء الوسطى (الأب والجد)</label>
-            <input type="text" name="middleNamesAr" required>
-        </div>
+
+        <!-- ٢. اسم العائلة عربي -->
         <div class="form-group">
             <label>اسم العائلة</label>
             <input type="text" name="lastNameAr" required>
         </div>
 
+        <!-- ٣. الأسماء الوسطى عربي -->
+        <div class="form-group">
+            <label>الأسماء الوسطى (الأب والجد)</label>
+            <input type="text" name="middleNamesAr" required>
+        </div>
+
+        <!-- ٤. الاسم الأول إنجليزي -->
         <div class="section-title">البيانات الشخصية (بالإنجليزي)</div>
         <div class="form-group">
             <label>الاسم الأول بالإنجليزي</label>
             <input type="text" name="firstNameEn" style="direction: ltr;" required>
         </div>
-        <div class="form-group">
-            <label>الأسماء الوسطى بالإنجليزي</label>
-            <input type="text" name="middleNamesEn" style="direction: ltr;" required>
-        </div>
+
+        <!-- ٥. اسم العائلة إنجليزي -->
         <div class="form-group">
             <label>اسم العائلة بالإنجليزي</label>
             <input type="text" name="lastNameEn" style="direction: ltr;" required>
         </div>
 
-        <hr>
+        <!-- ٦. الأسماء الوسطى إنجليزي -->
+        <div class="form-group">
+            <label>الأسماء الوسطى بالإنجليزي</label>
+            <input type="text" name="middleNamesEn" style="direction: ltr;" required>
+        </div>
 
+        <!-- ٧. رقم الهوية -->
+        <hr>
         <div class="form-group">
             <label>رقم الهوية</label>
             <input type="text" name="idNumber" maxlength="10" required>
         </div>
 
+        <!-- ٨. اسم البنك (عربي) — الترتيب في الإكسل: عربي أولاً ثم إنجليزي بعد الآيبان -->
         <div class="form-group">
             <label>اسم البنك</label>
-            <select name="bankName" required>
+            <select name="bankName" id="bankSelect" required>
                 <option value="">اختر البنك</option>
                 <option value="الراجحي">مصرف الراجحي</option>
                 <option value="الأهلي">البنك الأهلي السعودي (SNB)</option>
@@ -78,6 +91,7 @@
             </select>
         </div>
 
+        <!-- ٩. رقم الآيبان -->
         <div class="form-group">
             <label>رقم الآيبان (IBAN)</label>
             <div style="display: flex; align-items: center; direction: ltr;">
@@ -89,11 +103,16 @@
             </p>
         </div>
 
+        <!-- ١٠. اسم البنك (إنجليزي) — حقل مخفي يُملأ تلقائياً -->
+        <input type="hidden" name="bankNameEn" id="bankNameEn">
+
+        <!-- ١١. تاريخ الميلاد -->
         <div class="form-group">
             <label>تاريخ الميلاد (ميلادي)</label>
             <input type="date" name="dob" required>
         </div>
 
+        <!-- حقول ثابتة (لا تُرسل لأنها disabled، يمكن إضافتها كـ hidden إن احتجت) -->
         <div class="form-group">
             <label>الجنسية</label>
             <input type="text" value="SAU" class="static-field" readonly disabled>
@@ -107,6 +126,7 @@
             <input type="text" value="مسلم" class="static-field" readonly disabled>
         </div>
 
+        <!-- ١٢. الجنس -->
         <div class="form-group">
             <label>الجنس</label>
             <select name="gender" required>
@@ -115,6 +135,8 @@
                 <option value="أنثى">أنثى</option>
             </select>
         </div>
+
+        <!-- ١٣. الحالة الاجتماعية -->
         <div class="form-group">
             <label>الحالة الاجتماعية</label>
             <select name="maritalStatus" required>
@@ -124,10 +146,13 @@
             </select>
         </div>
 
+        <!-- ١٤. الإيميل -->
         <div class="form-group">
             <label>الإيميل</label>
             <input type="email" name="email" required>
         </div>
+
+        <!-- ١٥. رقم الجوال -->
         <div class="form-group">
             <label>رقم الجوال</label>
             <input type="tel" name="phone" id="phoneInput" maxlength="10" placeholder="05xxxxxxxx" required>
@@ -138,6 +163,26 @@
 </div>
 
 <script>
+    // خريطة البنوك: عربي → إنجليزي
+    const bankEnglishNames = {
+        'الراجحي':    'Al Rajhi Bank',
+        'الأهلي':     'Saudi National Bank (SNB)',
+        'الإنماء':    'Alinma Bank',
+        'الرياض':     'Riyad Bank',
+        'البلاد':     'Bank AlBilad',
+        'العربي':     'Arab National Bank (ANB)',
+        'ساب':        'Saudi Awwal Bank (SAB)',
+        'الجزيرة':    'Bank AlJazira',
+        'الاستثمار':  'Saudi Investment Bank (SAIB)',
+        'فرنسي':      'Banque Saudi Fransi (BSF)'
+    };
+
+    // تحديث اسم البنك الإنجليزي عند تغيير الاختيار
+    document.getElementById('bankSelect').addEventListener('change', function() {
+        const selectedValue = this.value;
+        document.getElementById('bankNameEn').value = bankEnglishNames[selectedValue] || '';
+    });
+
     // قيود الأرقام فقط
     ['ibanInput', 'phoneInput'].forEach(id => {
         document.getElementById(id).addEventListener('input', function() {
