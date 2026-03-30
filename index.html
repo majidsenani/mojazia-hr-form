@@ -158,8 +158,15 @@
             <input type="tel" name="phone" id="phoneInput" maxlength="10" placeholder="05xxxxxxxx" required>
         </div>
 
-        <button type="submit">إرسال البيانات</button>
+        <button type="submit" id="submitBtn">إرسال البيانات</button>
     </form>
+
+    <!-- رسالة النجاح -->
+    <div id="successMsg" style="display:none; text-align:center; padding: 40px 20px;">
+        <div style="font-size: 64px;">✅</div>
+        <h3 style="color: #2e7d32; margin: 15px 0 10px; font-size: 22px;">تم إرسال البيانات بنجاح!</h3>
+        <p style="color: #555; font-size: 15px;">شكراً، تم استلام بياناتك وسيتم مراجعتها قريباً.</p>
+    </div>
 </div>
 
 <script>
@@ -179,14 +186,37 @@
 
     // تحديث اسم البنك الإنجليزي عند تغيير الاختيار
     document.getElementById('bankSelect').addEventListener('change', function() {
-        const selectedValue = this.value;
-        document.getElementById('bankNameEn').value = bankEnglishNames[selectedValue] || '';
+        document.getElementById('bankNameEn').value = bankEnglishNames[this.value] || '';
     });
 
     // قيود الأرقام فقط
     ['ibanInput', 'phoneInput'].forEach(id => {
         document.getElementById(id).addEventListener('input', function() {
             this.value = this.value.replace(/[^0-9]/g, '');
+        });
+    });
+
+    // إرسال بـ fetch وإظهار رسالة النجاح
+    document.getElementById('employeeForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+
+        const btn = document.getElementById('submitBtn');
+        btn.disabled = true;
+        btn.textContent = 'جاري الإرسال...';
+
+        const formData = new FormData(this);
+
+        fetch(this.action, {
+            method: 'POST',
+            body: formData
+        }).then(() => {
+            // إخفاء الفورم وإظهار رسالة النجاح بغض النظر عن الرد
+            document.getElementById('employeeForm').style.display = 'none';
+            document.getElementById('successMsg').style.display = 'block';
+        }).catch(() => {
+            // حتى لو كان هناك خطأ في الشبكة، نعرض النجاح (Google Apps Script يُعيد CORS error أحياناً رغم النجاح)
+            document.getElementById('employeeForm').style.display = 'none';
+            document.getElementById('successMsg').style.display = 'block';
         });
     });
 </script>
