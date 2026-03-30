@@ -3,13 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>بيانات الموظفين - شركة صندوق مجزية العقاري</title>
+    <title>مشروع شركة صندوق مجزية العقاري - نموذج البيانات</title>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
     <style>
         body { font-family: 'Cairo', sans-serif; background-color: #f8f9fa; margin: 0; padding: 20px; color: #2c3e50; }
         .container { max-width: 650px; background: #ffffff; margin: auto; padding: 35px; border-radius: 15px; box-shadow: 0 10px 25px rgba(0,0,0,0.08); border-top: 10px solid #b8860b; }
         h2 { text-align: center; color: #b8860b; margin-bottom: 5px; }
         .sub-title { text-align: center; color: #7f8c8d; margin-bottom: 25px; font-size: 0.9em; }
+        .form-section-title { font-weight: 700; color: #b8860b; margin-top: 25px; margin-bottom: 10px; border-bottom: 2px solid #eee; padding-bottom: 5px; }
         .form-group { margin-bottom: 18px; }
         label { display: block; margin-bottom: 7px; font-weight: 700; color: #34495e; }
         input, select { width: 100%; padding: 12px; border: 1.5px solid #dce4ec; border-radius: 8px; box-sizing: border-box; font-family: 'Cairo'; font-size: 15px; transition: border-color 0.3s; }
@@ -18,43 +19,65 @@
         .iban-wrapper { display: flex; align-items: center; direction: ltr; }
         .iban-prefix { padding: 12px; background: #ecf0f1; border: 1.5px solid #dce4ec; border-right: none; border-radius: 8px 0 0 8px; font-weight: bold; color: #2c3e50; }
         .iban-input { border-radius: 0 8px 8px 0; }
-        button { width: 100%; padding: 15px; background-color: #b8860b; color: white; border: none; border-radius: 8px; font-size: 18px; font-weight: bold; cursor: pointer; transition: 0.4s; margin-top: 15px; }
+        button { width: 100%; padding: 15px; background-color: #b8860b; color: white; border: none; border-radius: 8px; font-size: 18px; font-weight: bold; cursor: pointer; transition: 0.4s; margin-top: 25px; }
         button:hover { background-color: #946d0a; transform: translateY(-2px); }
         button:disabled { background-color: #bdc3c7; cursor: not-allowed; }
         .note { font-size: 11px; color: #e74c3c; margin-top: 5px; line-height: 1.4; }
+        .row-2-col { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+        @media (max-width: 500px) { .row-2-col { grid-template-columns: 1fr; } }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <h2>شركة صندوق مجزية العقاري</h2>
-    <p class="sub-title">يرجى تعبئة البيانات بدقة لغرض إكمال إجراءات التوظيف</p>
+    <h2>مشروع شركة صندوق مجزية العقاري</h2>
+    <p class="sub-title">نموذج تعبئة بيانات الموظفين الجدد (8 موظفين)</p>
     <hr style="border: 0; border-top: 1px solid #eee; margin-bottom: 25px;">
     
     <form id="employeeForm">
-        <div class="form-group">
-            <label>الاسم الأول</label>
-            <input type="text" name="firstName" required placeholder="مثال: ماجد">
-        </div>
         
+        <div class="form-section-title">الاسم باللغة العربية (كما في الهوية)</div>
+        <div class="row-2-col">
+            <div class="form-group">
+                <label>الاسم الأول</label>
+                <input type="text" name="firstName" required placeholder="ماجد">
+            </div>
+            <div class="form-group">
+                <label>اسم العائلة</label>
+                <input type="text" name="lastName" required placeholder="السناني">
+            </div>
+        </div>
         <div class="form-group">
-            <label>الأسماء الوسطى</label>
-            <input type="text" name="middleNames" required placeholder="اسم الأب والجد">
+            <label>الأسماء الوسطى (الأب والجد)</label>
+            <input type="text" name="middleNames" required placeholder="عبدالله محمد">
         </div>
 
+        <div class="form-section-title">الاسم باللغة الإنجليزية (English Name)</div>
+        <div class="row-2-col">
+            <div class="form-group">
+                <label>First Name</label>
+                <input type="text" name="englishFirstName" required placeholder="Majed" style="direction: ltr;">
+            </div>
+            <div class="form-group">
+                <label>Last Name</label>
+                <input type="text" name="englishLastName" required placeholder="Alsinani" style="direction: ltr;">
+            </div>
+        </div>
         <div class="form-group">
-            <label>اسم العائلة</label>
-            <input type="text" name="lastName" required placeholder="اللقب">
+            <label>Middle Names</label>
+            <input type="text" name="englishMiddleNames" required placeholder="Abdullah Mohammed" style="direction: ltr;">
         </div>
 
-        <div class="form-group">
-            <label>الاسم بالإنجليزية (كامل)</label>
-            <input type="text" name="englishName" required placeholder="As written in Passport/ID">
-        </div>
-
-        <div class="form-group">
-            <label>رقم الهوية الوطنية</label>
-            <input type="text" name="idNumber" pattern="\d{10}" title="يجب أن يتكون من 10 أرقام" required maxlength="10" placeholder="1xxxxxxxx">
+        <div class="form-section-title">البيانات الشخصية والبنكية</div>
+        <div class="row-2-col">
+            <div class="form-group">
+                <label>رقم الهوية</label>
+                <input type="text" name="idNumber" pattern="\d{10}" required maxlength="10" placeholder="1xxxxxxxx">
+            </div>
+            <div class="form-group">
+                <label>تاريخ الميلاد (ميلادي)</label>
+                <input type="date" name="dob" required>
+            </div>
         </div>
 
         <div class="form-group">
@@ -63,15 +86,10 @@
                 <span class="iban-prefix">SA</span>
                 <input type="text" name="iban" class="iban-input" required maxlength="22" pattern="\d{22}" placeholder="أدخل 22 رقماً فقط">
             </div>
-            <p class="note">⚠️ يجب أن يكون حساباً بنكياً جارياً (غير رقمي) ولا يقبل حسابات الدعم الحكومي.</p>
+            <p class="note">⚠️ حساب بنكي جاري فقط (غير رقمي ولا يقبل حسابات الدعم).</p>
         </div>
 
-        <div class="form-group">
-            <label>تاريخ الميلاد (ميلادي)</label>
-            <input type="date" name="dob" required>
-        </div>
-
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+        <div class="row-2-col">
             <div class="form-group">
                 <label>الجنسية</label>
                 <input type="text" name="nationality" value="SAU" class="static-field" readonly>
@@ -82,7 +100,7 @@
             </div>
         </div>
 
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+        <div class="row-2-col">
             <div class="form-group">
                 <label>الديانة</label>
                 <input type="text" name="religion" value="مسلم" class="static-field" readonly>
@@ -106,14 +124,15 @@
             </select>
         </div>
 
-        <div class="form-group">
-            <label>البريد الإلكتروني</label>
-            <input type="email" name="email" required placeholder="example@email.com">
-        </div>
-
-        <div class="form-group">
-            <label>رقم الجوال</label>
-            <input type="tel" name="phone" pattern="05\d{8}" placeholder="05xxxxxxxx" required maxlength="10">
+        <div class="row-2-col">
+            <div class="form-group">
+                <label>الإيميل</label>
+                <input type="email" name="email" required placeholder="example@email.com" style="direction: ltr;">
+            </div>
+            <div class="form-group">
+                <label>رقم الجوال</label>
+                <input type="tel" name="phone" pattern="05\d{8}" placeholder="05xxxxxxxx" required maxlength="10">
+            </div>
         </div>
 
         <button type="submit" id="submitBtn">إرسال البيانات للنظام</button>
@@ -121,30 +140,29 @@
 </div>
 
 <script>
-const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbz5ds0rortObOSDNf51eoQn3fkvBNAa_yX-fLvTbNRHiLGfLcl_9GxVsav_j60xw_Sh/exec";
+// الرابط الجديد الذي زودتني به
+const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxJgdd4PzQU1adA9p7aRMycA86SXxVbaohHbirJ3ZlkdWEb8ecuarQpDJWAWzvqzL7j/exec";
 
 document.getElementById('employeeForm').onsubmit = function(e) {
     e.preventDefault();
     const btn = document.getElementById('submitBtn');
-    btn.innerText = "جاري الحفظ في النظام...";
+    btn.innerText = "جاري الحفظ...";
     btn.disabled = true;
 
-    // تحويل البيانات لـ URL Search Params للإرسال المتوافق مع Apps Script
     const formData = new FormData(this);
     const queryString = new URLSearchParams(formData).toString();
 
-    fetch(SCRIPT_URL + "?" + queryString, { 
-        method: 'GET' // نستخدم GET مع Apps Script لتجنب مشاكل الـ CORS في المتصفحات
-    })
+    fetch(SCRIPT_URL + "?" + queryString, { method: 'GET' })
     .then(res => {
-        alert('تم تسجيل بياناتك بنجاح في شركة صندوق مجزية العقاري. شكراً لك.');
+        alert('تم تسجيل البيانات بنجاح في نظام شركة صندوق مجزية العقاري.');
         document.getElementById('employeeForm').reset();
         btn.innerText = "إرسال البيانات للنظام";
         btn.disabled = false;
     })
     .catch(err => {
-        alert('حدث خطأ في الاتصال، يرجى المحاولة مرة أخرى');
+        alert('حدث خطأ، حاول مجدداً');
         btn.disabled = false;
+        btn.innerText = "إرسال البيانات للنظام";
     });
 };
 </script>
