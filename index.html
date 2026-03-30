@@ -13,7 +13,7 @@
         .form-group { margin-bottom: 18px; }
         label { display: block; margin-bottom: 7px; font-weight: 700; color: #34495e; }
         input, select { width: 100%; padding: 12px; border: 1.5px solid #dce4ec; border-radius: 8px; box-sizing: border-box; font-family: 'Cairo'; font-size: 15px; }
-        input:focus, select:focus { border-color: #b8860b; outline: none; }
+        input:focus, select:focus { border-color: #b8860b; outline: none; box-shadow: 0 0 5px rgba(184, 134, 11, 0.2); }
         .static-field { background-color: #f1f3f5; color: #7f8c8d; cursor: not-allowed; font-weight: bold; }
         .iban-wrapper { display: flex; align-items: center; direction: ltr; }
         .iban-prefix { padding: 12px; background: #ecf0f1; border: 1.5px solid #dce4ec; border-right: none; border-radius: 8px 0 0 8px; font-weight: bold; }
@@ -31,7 +31,7 @@
     <h2>مشروع شركة صندوق مجزية العقاري</h2>
     
     <form id="employeeForm">
-        <div class="form-section-title">الاسم باللغة العربية (إلزامي)</div>
+        <div class="form-section-title">الاسم باللغة العربية</div>
         <div class="row-2-col">
             <div class="form-group">
                 <label>الاسم الأول</label>
@@ -47,7 +47,7 @@
             <input type="text" name="middleNames" required>
         </div>
 
-        <div class="form-section-title">English Name (Mandatory)</div>
+        <div class="form-section-title">English Name</div>
         <div class="row-2-col">
             <div class="form-group">
                 <label>First Name</label>
@@ -153,7 +153,7 @@
 </div>
 
 <script>
-// الرابط الأخير الذي زودتني به
+// الرابط الأخير الذي أعددناه
 const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzD8CeaYfOrfCYTAHbK7JPaBZEluOLsDjEmVd0BRwjeRdbyjrsY4RYdbdy_O_geFDe3/exec";
 
 document.getElementById('employeeForm').onsubmit = function(e) {
@@ -165,12 +165,12 @@ document.getElementById('employeeForm').onsubmit = function(e) {
     const form = e.target;
     const formData = new FormData(form);
     
-    // الحصول على النص العربي للبنك المختار وإرساله كخانة منفصلة
+    // منطق سحب اسم البنك العربي ومعرفه الإنجليزي في وقت واحد
     const bankSelect = document.getElementById('bankSelect');
-    const bankFullText = bankSelect.options[bankSelect.selectedIndex].text;
+    const bankFullText = bankSelect.options[bankSelect.selectedIndex].text; // النص العربي
     
     const params = new URLSearchParams(formData);
-    params.append('bankFullText', bankFullText); 
+    params.append('bankFullText', bankFullText); // إضافة الاسم العربي كحقل جديد
 
     fetch(SCRIPT_URL + "?" + params.toString(), { method: 'GET' })
     .then(res => {
