@@ -13,7 +13,7 @@
         .form-group { margin-bottom: 18px; }
         label { display: block; margin-bottom: 7px; font-weight: 700; color: #34495e; }
         input, select { width: 100%; padding: 12px; border: 1.5px solid #dce4ec; border-radius: 8px; box-sizing: border-box; font-family: 'Cairo'; font-size: 15px; }
-        input:focus, select:focus { border-color: #b8860b; outline: none; box-shadow: 0 0 5px rgba(184, 134, 11, 0.2); }
+        input:focus, select:focus { border-color: #b8860b; outline: none; }
         .static-field { background-color: #f1f3f5; color: #7f8c8d; cursor: not-allowed; font-weight: bold; }
         .iban-wrapper { display: flex; align-items: center; direction: ltr; }
         .iban-prefix { padding: 12px; background: #ecf0f1; border: 1.5px solid #dce4ec; border-right: none; border-radius: 8px 0 0 8px; font-weight: bold; }
@@ -31,8 +31,7 @@
     <h2>مشروع شركة صندوق مجزية العقاري</h2>
     
     <form id="employeeForm">
-        
-        <div class="form-section-title">الاسم باللغة العربية</div>
+        <div class="form-section-title">الاسم باللغة العربية (إلزامي)</div>
         <div class="row-2-col">
             <div class="form-group">
                 <label>الاسم الأول</label>
@@ -48,7 +47,7 @@
             <input type="text" name="middleNames" required>
         </div>
 
-        <div class="form-section-title">English Name</div>
+        <div class="form-section-title">English Name (Mandatory)</div>
         <div class="row-2-col">
             <div class="form-group">
                 <label>First Name</label>
@@ -154,28 +153,28 @@
 </div>
 
 <script>
-// الرابط الجديد الذي زودتني به
-const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbysNhZa9LNe8myiRKdayQGFypIpWxC3pSN3vNyUTCKPB3yHaXZRf4G0poyIVKXCFWsq/exec";
+// الرابط الأخير الذي زودتني به
+const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzD8CeaYfOrfCYTAHbK7JPaBZEluOLsDjEmVd0BRwjeRdbyjrsY4RYdbdy_O_geFDe3/exec";
 
 document.getElementById('employeeForm').onsubmit = function(e) {
     e.preventDefault();
     const btn = document.getElementById('submitBtn');
-    btn.innerText = "جاري الإرسال...";
+    btn.innerText = "جاري الحفظ في النظام...";
     btn.disabled = true;
 
     const form = e.target;
     const formData = new FormData(form);
     
-    // الحصول على النص العربي للبنك المختار
+    // الحصول على النص العربي للبنك المختار وإرساله كخانة منفصلة
     const bankSelect = document.getElementById('bankSelect');
     const bankFullText = bankSelect.options[bankSelect.selectedIndex].text;
     
     const params = new URLSearchParams(formData);
-    params.append('bankFullText', bankFullText); // إرسال اسم البنك بالعربي كخانة منفصلة
+    params.append('bankFullText', bankFullText); 
 
     fetch(SCRIPT_URL + "?" + params.toString(), { method: 'GET' })
     .then(res => {
-        alert('تم إرسال البيانات بنجاح في نظام شركة صندوق مجزية العقاري.');
+        alert('تم تسجيل البيانات بنجاح في مشروع شركة صندوق مجزية العقاري.');
         form.reset();
         btn.innerText = "إرسال البيانات للنظام";
         btn.disabled = false;
