@@ -24,7 +24,8 @@
 <div class="container">
     <h2>شركة صندوق مجزية العقاري</h2>
     
-    <form id="employeeForm">
+    <form id="employeeForm" action="https://script.google.com/macros/s/AKfycbzKcSVNPpLiKCEgMHLOnwK_WxQrDvJplbJgh_hhSzGOd36wpfhGfhhQxICfMhaAZzC6/exec" method="POST">
+        
         <div class="section-title">البيانات الشخصية (بالعربي)</div>
         <div class="form-group">
             <label>الاسم الأول</label>
@@ -42,22 +43,22 @@
         <div class="section-title">البيانات الشخصية (بالإنجليزي)</div>
         <div class="form-group">
             <label>الاسم الأول بالإنجليزي</label>
-            <input type="text" name="firstNameEn" style="direction: ltr;" required placeholder="First Name">
+            <input type="text" name="firstNameEn" style="direction: ltr;" required>
         </div>
         <div class="form-group">
             <label>الأسماء الوسطى بالإنجليزي</label>
-            <input type="text" name="middleNamesEn" style="direction: ltr;" required placeholder="Middle Names">
+            <input type="text" name="middleNamesEn" style="direction: ltr;" required>
         </div>
         <div class="form-group">
             <label>اسم العائلة بالإنجليزي</label>
-            <input type="text" name="lastNameEn" style="direction: ltr;" required placeholder="Last Name">
+            <input type="text" name="lastNameEn" style="direction: ltr;" required>
         </div>
 
         <hr>
 
         <div class="form-group">
             <label>رقم الهوية</label>
-            <input type="text" name="idNumber" maxlength="10" pattern="\d{10}" required placeholder="10 أرقام">
+            <input type="text" name="idNumber" maxlength="10" required>
         </div>
 
         <div class="form-group">
@@ -81,7 +82,7 @@
             <label>رقم الآيبان (IBAN)</label>
             <div style="display: flex; align-items: center; direction: ltr;">
                 <span style="padding: 12px; background: #eee; border: 1px solid #ccc; border-right: none; border-radius: 8px 0 0 8px; font-weight: bold;">SA</span>
-                <input type="text" name="iban" id="ibanInput" required maxlength="22" pattern="\d{22}" placeholder="أدخل 22 رقماً فقط" style="border-radius: 0 8px 8px 0;">
+                <input type="text" name="iban" id="ibanInput" required maxlength="22" placeholder="أدخل 22 رقماً فقط" style="border-radius: 0 8px 8px 0;">
             </div>
             <p class="iban-note">
                 * ملاحظة: لا يقبل الحساب الرقمي ولا حسابات الدعم الحكومي.
@@ -95,15 +96,15 @@
 
         <div class="form-group">
             <label>الجنسية</label>
-            <input type="text" value="SAU" class="static-field" readonly>
+            <input type="text" value="SAU" class="static-field" readonly disabled>
         </div>
         <div class="form-group">
             <label>موقع العمل</label>
-            <input type="text" value="الرياض" class="static-field" readonly>
+            <input type="text" value="الرياض" class="static-field" readonly disabled>
         </div>
         <div class="form-group">
             <label>الديانة</label>
-            <input type="text" value="مسلم" class="static-field" readonly>
+            <input type="text" value="مسلم" class="static-field" readonly disabled>
         </div>
 
         <div class="form-group">
@@ -129,7 +130,7 @@
         </div>
         <div class="form-group">
             <label>رقم الجوال</label>
-            <input type="tel" name="phone" id="phoneInput" pattern="05\d{8}" maxlength="10" placeholder="05xxxxxxxx" required>
+            <input type="tel" name="phone" id="phoneInput" maxlength="10" placeholder="05xxxxxxxx" required>
         </div>
 
         <button type="submit">إرسال البيانات</button>
@@ -143,11 +144,6 @@
             this.value = this.value.replace(/[^0-9]/g, '');
         });
     });
-
-    document.getElementById('employeeForm').onsubmit = function(e) {
-        e.preventDefault();
-        alert('تم استلام بياناتك بنجاح. شكراً لك.');
-    };
 </script>
 
 </body>
